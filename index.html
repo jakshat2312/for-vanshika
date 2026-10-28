@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fff0f5" />
+  <title>For My Favorite Person ♡</title>
+  <style>
+    :root {
+      --pink: #e95d8e;
+      --rose: #b73568;
+      --blush: #fff0f5;
+      --cream: #fffaf7;
+      --ink: #53263a;
+      --muted: #8d6375;
+      --line: #f4d4e0;
+      --shadow: 0 18px 50px rgba(164, 61, 105, .12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink);
+      font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 5%, rgba(255, 210, 226, .75), transparent 35rem),
+        radial-gradient(ellipse at 95% 28%, rgba(255, 226, 231, .75), transparent 28rem),
+        var(--cream);
+      line-height: 1.65;
+    }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; }
+    .topbar {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; padding: 1rem clamp(1rem, 5vw, 4rem);
+      position: absolute; top: 0; width: 100%; z-index: 2;
+    }
+    .brand { font-family: Georgia, serif; font-size: 1.15rem; font-style: italic; }
+    .music-btn, .pill {
+      border: 1px solid var(--line); background: rgba(255,255,255,.8);
+      border-radius: 999px; padding: .65rem 1rem; color: var(--rose);
+      box-shadow: 0 5px 18px rgba(164,61,105,.06);
+    }
+    .hero {
+      min-height: 94svh; display: grid; place-items: center; text-align: center;
+      padding: 7rem 1.25rem 4rem; position: relative; overflow: hidden;
+    }
+    .hero-inner { max-width: 760px; position: relative; z-index: 1; }
+    .eyebrow { color: var(--rose); letter-spacing: .2em; text-transform: uppercase; font-size: .75rem; font-weight: 700; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; line-height: 1.12; }
+    h1 { font-size: clamp(3rem, 9vw, 6.7rem); margin: 1rem 0; letter-spacing: -.045em; }
+    h1 em { color: var(--pink); font-weight: 400; }
+    .hero p { color: var(--muted); font-size: clamp(1rem, 2.5vw, 1.25rem); max-width: 560px; margin: 0 auto 1.8rem; }
+    .primary {
+      background: linear-gradient(135deg, #ee78a1, #d84e82); color: white;
+      border: 0; border-radius: 999px; padding: .9rem 1.5rem;
+      box-shadow: 0 12px 28px rgba(216,78,130,.25); transition: transform .2s;
+    }
+    .primary:hover { transform: translateY(-2px); }
+    .tiny-note { font-size: .82rem !important; margin-top: 1rem !important; }
+    .float-heart { position: absolute; color: #e88aae; opacity: .3; animation: float 8s ease-in-out infinite; user-select: none; }
+    .heart1 { left: 9%; top: 24%; font-size: 2.6rem; }
+    .heart2 { right: 12%; top: 32%; font-size: 3.2rem; animation-delay: -3s; }
+    .heart3 { left: 18%; bottom: 16%; font-size: 1.6rem; animation-delay: -5s; }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-22px) rotate(8deg); } }
+    section { padding: 5.5rem clamp(1rem, 5vw, 4rem); }
+    .section-inner { max-width: 1050px; margin: 0 auto; }
+    .section-head { text-align: center; margin: 0 auto 2.5rem; max-width: 650px; }
+    .section-head h2 { font-size: clamp(2.3rem, 5vw, 3.7rem); margin: .55rem 0 .8rem; }
+    .section-head p { color: var(--muted); margin: 0; }
+    .memory-section { background: rgba(255,238,245,.62); border-block: 1px solid rgba(244,212,224,.7); }
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .photo-card {
+      background: white; padding: .65rem .65rem 1rem; border-radius: 10px;
+      box-shadow: var(--shadow); transform: rotate(var(--tilt, 0deg)); transition: transform .2s;
+    }
+    .photo-card:hover { transform: rotate(0deg) translateY(-4px); }
+    .photo-slot {
+      width: 100%; aspect-ratio: 4/4.5; display: grid; place-items: center;
+      overflow: hidden; border-radius: 6px; background: linear-gradient(145deg,#ffe2ec,#fff5f7);
+      color: #a64d70; text-align: center; position: relative;
+    }
+    .photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-slot .placeholder { padding: 1rem; font-size: .92rem; }
+    .photo-slot .placeholder span { display: block; font-size: 2rem; margin-bottom: .5rem; }
+    .photo-card input { display: none; }
+    .photo-card label { display: block; cursor: pointer; }
+    .caption { font-family: Georgia, serif; text-align: center; margin-top: .8rem; font-style: italic; color: #8c4563; }
+    .small-help { color: var(--muted); text-align: center; font-size: .9rem; margin-top: 1.5rem; }
+    .letter-wrap { max-width: 760px; margin: 0 auto; background: rgba(255,255,255,.86); border: 1px solid var(--line); border-radius: 22px; padding: clamp(1.5rem, 5vw, 3.5rem); box-shadow: var(--shadow); position: relative; }
+    .letter-wrap:before { content: "♡"; position: absolute; top: -1.4rem; left: 50%; transform: translateX(-50%); color: var(--pink); background: var(--cream); padding: 0 .8rem; font-size: 2rem; }
+    .letter-wrap p { color: #765063; }
+    .signature { font-family: Georgia, serif; font-size: 1.5rem; font-style: italic; color: var(--rose) !important; }
+    .reasons-section { background: linear-gradient(180deg, #fff8fa, #fff0f5); }
+    .reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .reason { border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.75); padding: 1.4rem; min-height: 155px; }
+    .reason .num { color: var(--pink); font-size: .8rem; letter-spacing: .14em; font-weight: 800; }
+    .reason p { margin-bottom: 0; color: #765063; }
+    .surprise-card { max-width: 700px; margin: 0 auto; text-align: center; background: linear-gradient(145deg, #fff0f5, #fffaf7); border: 1px solid var(--line); border-radius: 26px; padding: clamp(2rem, 6vw, 4rem) 1.5rem; box-shadow: var(--shadow); }
+    .gift-icon { font-size: 4rem; display: block; margin-bottom: .6rem; animation: bob 2.8s ease-in-out infinite; }
+    @keyframes bob { 50% { transform: translateY(-8px); } }
+    .surprise-card h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); margin: .5rem 0 1rem; }
+    #surpriseMessage { display: none; max-width: 510px; margin: 1.5rem auto 0; padding: 1.2rem; border-radius: 16px; background: white; color: var(--rose); }
+    #surpriseMessage.show { display: block; animation: appear .5s ease both; }
+    @keyframes appear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    footer { text-align: center; padding: 2.5rem 1rem; color: var(--muted); font-size: .9rem; }
+    .footer-heart { color: var(--pink); }
+    .confetti { position: fixed; z-index: 20; top: -20px; pointer-events: none; animation: fall 3.4s linear forwards; }
+    @keyframes fall { to { transform: translateY(110vh) rotate(600deg); opacity: 0; } }
+    @media (max-width: 700px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+      .gallery .photo-card:last-child { grid-column: 1 / -1; max-width: 70%; justify-self: center; }
+      .reasons { grid-template-columns: 1fr; }
+      section { padding-block: 4rem; }
+      .heart1 { left: 4%; } .heart2 { right: 4%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">just for you ♡</div>
+    <button class="music-btn" id="musicToggle" aria-pressed="false">♫ Play some music</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <span class="float-heart heart1">♡</span><span class="float-heart heart2">♥</span><span class="float-heart heart3">♡</span>
+      <div class="hero-inner">
+        <div class="eyebrow">A little corner of the internet, just for you</div>
+        <h1>Happy Birthday,<br><em>Vanshika</em> ♡</h1>
+        <p>I wish I could give you the biggest hug right now. Until then, I made you a little something.</p>
+        <button class="primary" onclick="document.querySelector('#memories').scrollIntoView({behavior:'smooth'})">Open your surprise ↓</button>
+        <p class="tiny-note">Made with love, just for you.</p>
+      </div>
+    </section>
+
+    <section class="memory-section" id="memories">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="eyebrow">Little moments, big feelings</div>
+          <h2>Our little world 📸</h2>
+          <p>Some of my favorite moments have you in them.</p>
+        </div>
+        <div class="gallery">
+          <div class="photo-card" style="--tilt:-2deg">
+            <div class="photo-slot">
+              <img src="IMG_1.jpg" alt="One of my favorite days">
+            </div>
+            <div class="caption">One of my favorite days</div>
+          </div>
+          <div class="photo-card" style="--tilt:1.5deg">
+            <div class="photo-slot">
+              <img src="IMG_2.jpg" alt="My favorite smile">
+            </div>
+            <div class="caption">My favorite smile</div>
+          </div>
+          <div class="photo-card" style="--tilt:-1deg">
+            <div class="photo-slot">
+              <img src="IMG_3.jpg" alt="A moment I'd relive">
+            </div>
+            <div class="caption">A moment I'd relive</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="letter">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="eyebrow">From my heart to yours</div>
+          <h2>A little letter for you</h2>
+        </div>
+        <article class="letter-wrap">
+          <p>My betu,</p>
+          <p>Happy birthday my cutu. I wish I could have been there to celebrate this day with you. You are very special and I know I don't say that enough but aapke saath hi sukoon milta hai.</p>
+          <p>I hope you enjoy your day to the fullest. Baki mere sath Vietnam me to karoge hi celebrate :P. </p>
+          <p>Thank you for being you, for being part of my life, and for giving me so many memories. I can't wait to make more memories with you.</p>
+          <p class="signature">Yours, ♡<br><span id="yourName">Akshat</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="reasons-section" id="reasons">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="eyebrow">In case I don't say it enough</div>
+          <h2>Reasons I love you</h2>
+          <p>Just a few of the million little things that make you, you.</p>
+        </div>
+        <div class="reasons">
+          <div class="reason"><div class="num">01 / YOUR HEART</div><p>The kindness you show, and how selfless you are towards your loved ones.</p></div>
+          <div class="reason"><div class="num">02 / YOUR LAUGH</div><p>My fav sound in the world</p></div>
+          <div class="reason"><div class="num">03 / YOUR SIMPLICITY</div><p>You have that saadgi in you.</p></div>
+          <div class="reason"><div class="num">04 / BEING US</div><p>How I can be totally weird myself version with you.</p></div>
+          <div class="reason"><div class="num">05 / THE LITTLE THINGS</div><p>Your habits, your expressions, and the details only I notice.</p></div>
+          <div class="reason"><div class="num">06 / YOUR VALUES</div><p>Mujhe bhi almost sudhar diya.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="surprise">
+      <div class="section-inner">
+        <div class="surprise-card">
+          <span class="gift-icon">🎁</span>
+          <div class="eyebrow">One last thing...</div>
+          <h2>I have a little surprise for you</h2>
+          <p>Ready? Take a deep breath and tap the button. ♡</p>
+          <button class="primary" id="revealBtn">Reveal my surprise ✨</button>
+          <div id="surpriseMessage" role="status" aria-live="polite">
+            <p>Jaldi kya hai, ab face to face hi milega aapko apna gift hehe. Sabar karo thoda chutku</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Made with <span class="footer-heart">♥</span> and a ridiculous amount of love.<br>
+    Happy Birthday, my favorite person.
+  </footer>
+
+  <!-- Browsers require a user tap before music can start. -->
+  <audio id="birthdaySong" loop preload="metadata">
+    <source src="song.m4a" type="audio/mp4">
+  </audio>
+
+  <script>
+    const music = document.getElementById('birthdaySong');
+    const musicToggle = document.getElementById('musicToggle');
+    musicToggle.addEventListener('click', async () => {
+      if (music.paused) {
+        try {
+          await music.play();
+          musicToggle.textContent = '♫ Pause music';
+          musicToggle.setAttribute('aria-pressed', 'true');
+        } catch (error) {
+          alert('Could not play the song. Try tapping play again.');
+        }
+      } else {
+        music.pause();
+        musicToggle.textContent = '♫ Play some music';
+        musicToggle.setAttribute('aria-pressed', 'false');
+      }
+    });
+
+    document.getElementById('revealBtn').addEventListener('click', () => {
+      document.getElementById('surpriseMessage').classList.add('show');
+      document.getElementById('revealBtn').textContent = 'Surprise revealed 💗';
+      document.getElementById('revealBtn').disabled = true;
+      const symbols = ['♥', '♡', '✿', '✨', '💗'];
+      for (let i = 0; i < 42; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti';
+        piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.animationDelay = Math.random() * 1.2 + 's';
+        piece.style.fontSize = (14 + Math.random() * 18) + 'px';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5000);
+      }
+    });
+  </script>
+</body>
+</html>
